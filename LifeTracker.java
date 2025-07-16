@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 public class LifeTracker {
     private ArrayList<LogEntry> entries;
-
+    int age = 10;
     public LifeTracker() {
         entries = new ArrayList<>();
     }
