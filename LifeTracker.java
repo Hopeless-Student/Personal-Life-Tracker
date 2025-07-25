@@ -1,7 +1,8 @@
 import java.util.ArrayList;
 public class LifeTracker {
     private ArrayList<LogEntry> entries;
-    int age = 10;
+    Main main = new Main();
+    
     public LifeTracker() {
         entries = new ArrayList<>();
     }
@@ -37,6 +38,6 @@ public class LifeTracker {
         } else {
             System.out.println("Entries found.");
         }
-
+        
     }
 }

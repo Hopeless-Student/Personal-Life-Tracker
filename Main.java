@@ -1,3 +1,4 @@
+import java.io.IOException;
 import java.util.Scanner;
 
 public class Main {
@@ -12,6 +13,13 @@ public class Main {
         System.out.print("Please select an option (1-6): ");
     }
 
+    public void clearConsole() {
+        try {
+            new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
+        } catch (IOException | InterruptedException e) {
+            System.out.println("Unable to clear the console.");
+        }
+    }
     public void addLogEntry(LifeTracker lifeTracker, Scanner scanner) {
         System.out.println("\nAdding a new log entry...");
         float hoursStudied = 0;
@@ -28,11 +36,25 @@ public class Main {
         } catch (Exception e) {
             System.out.println("\nStrings are not allowed. Please enter a valid number for hours studied.");
         }
-        } while (hoursStudied <= 0);
+        } while (hoursStudied < 0);
         
         
-        System.out.print("Did you exercise today? (true/false): ");
-        boolean exerciseDone = scanner.nextBoolean();
+        System.out.print("Did you exercise today? (Yes/No): ");
+        boolean exerciseDone = false;
+        scanner.nextLine(); 
+        String exerciseToday = scanner.nextLine().trim().toLowerCase();
+        while (exerciseDone == false) {
+            if (exerciseToday.equals("yes") || exerciseToday.equals("y")) {
+                exerciseToday = "Yes";
+                exerciseDone = true;
+            } else if (exerciseToday.equals("no") || exerciseToday.equals("n")) {
+                exerciseToday = "No";
+                exerciseDone = false;
+            } else {
+                System.out.print("Invalid input. Please enter 'Yes' or 'No': ");
+                exerciseToday = scanner.nextLine().trim().toLowerCase();
+            }
+        }
         
         System.out.print("Rate your mood from 1 to 10: ");
         int moodRating = scanner.nextInt();
