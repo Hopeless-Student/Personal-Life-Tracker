@@ -20,9 +20,26 @@ public class Main {
             System.out.println("Unable to clear the console.");
         }
     }
-    public void addLogEntry(LifeTracker lifeTracker, Scanner scanner) {
-        System.out.println("\nAdding a new log entry...");
-        float hoursStudied = 0;;
+    public static void printRunningText(String text, int delay) {
+            for (char c : text.toCharArray()) {
+                System.out.print(c);  
+                try {
+                    Thread.sleep(delay); 
+                } catch (InterruptedException e) {
+                    Thread.currentThread().interrupt();
+                    System.out.println("Error in delay: " + e.getMessage());
+                }
+            }
+            System.out.println();  
+        }
+
+    public void addLogEntry(LifeTracker lifeTracker, Scanner scanner) throws InterruptedException {
+        printRunningText("\nAdding new log entry...", 30);
+        Thread.sleep(1234);
+        clearConsole();
+        System.out.println("===================================");
+        printRunningText("New Log Entry!", 30);
+        float hoursStudied = 0;
         do{
             try { //hours studied
             System.out.print("Enter hours studied: ");
@@ -82,6 +99,10 @@ public class Main {
         LogEntry logEntry = new LogEntry(hoursStudied, exerciseDone, moodRating, notes);
         lifeTracker.addEntry(logEntry);
         System.out.println("Log entry added successfully.");
+        System.out.println("===================================");
+        printRunningText("Returning to main menu...", 30);
+        Thread.sleep(1500);
+        clearConsole();
         
     }
 
