@@ -5,10 +5,10 @@ public class LogEntry{
     LocalDateTime dateTime = LocalDateTime.now();
     private float hoursStudied;
     private boolean exerciseDone;
-    private int moodRating;
+    private float moodRating;
     private String notes;
 
-    public LogEntry(float hoursStudied, boolean exerciseDone, int moodRating, String notes) {
+    public LogEntry(float hoursStudied, boolean exerciseDone, float moodRating, String notes) {
         this.hoursStudied = hoursStudied;
         this.exerciseDone = exerciseDone;
         this.moodRating = moodRating;
@@ -32,7 +32,7 @@ public class LogEntry{
     public boolean getExerciseDone() {
         return exerciseDone;
     }
-    public int getMoodRating() {
+    public float getMoodRating() {
         return moodRating;
     }
     public String getNotes() {

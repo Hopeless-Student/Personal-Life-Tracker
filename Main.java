@@ -22,23 +22,24 @@ public class Main {
     }
     public void addLogEntry(LifeTracker lifeTracker, Scanner scanner) {
         System.out.println("\nAdding a new log entry...");
-        float hoursStudied = 0;
+        float hoursStudied = 0;;
         do{
             try { //hours studied
-            scanner.nextLine(); 
             System.out.print("Enter hours studied: ");
             hoursStudied = scanner.nextFloat();
 
             if(hoursStudied < 0) {
                 System.out.print("\nHours studied cannot be negative. Please enter a valid number: ");
-                hoursStudied = scanner.nextFloat();
+                
             }
         } catch (Exception e) {
             System.out.println("\nStrings are not allowed. Please enter a valid number for hours studied.");
-        }
+            scanner.nextLine(); 
+            hoursStudied = -1;
+            }
         } while (hoursStudied < 0);
         
-        
+        // exercise done
         System.out.print("Did you exercise today? (Yes/No): ");
         boolean exerciseDone = false;
         scanner.nextLine(); 
@@ -50,14 +51,29 @@ public class Main {
             } else if (exerciseToday.equals("no") || exerciseToday.equals("n")) {
                 exerciseToday = "No";
                 exerciseDone = false;
+                break;
             } else {
                 System.out.print("Invalid input. Please enter 'Yes' or 'No': ");
                 exerciseToday = scanner.nextLine().trim().toLowerCase();
             }
         }
-        
-        System.out.print("Rate your mood from 1 to 10: ");
-        int moodRating = scanner.nextInt();
+        //mood rating
+        float moodRating = 0;
+        while (moodRating < 1 || moodRating > 10) {
+            try {
+                System.out.print("Rate your mood from 1 to 10: ");
+                moodRating = scanner.nextFloat();
+
+                if (moodRating < 1 || moodRating > 10) {
+                    System.out.print("Invalid rating. Please enter a number between 1 and 10! ");
+                } else {
+                    break;
+                }
+            } catch (Exception e) {
+                System.out.println("\nStrings are not allowed. Enter a valid mood rate!");
+                scanner.nextLine();
+            }
+        }
         
         scanner.nextLine(); 
         System.out.print("Any additional notes? ");
@@ -73,7 +89,6 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
         LifeTracker lifeTracker = new LifeTracker();
         Main main = new Main();
-        System.out.println("HELLO GIT!");
         System.out.println("===================================");
         System.out.println("Welcome to the Personal Life Tracker!\n");
         int choice = 0;
