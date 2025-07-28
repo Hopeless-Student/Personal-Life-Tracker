@@ -8,11 +8,11 @@ public class MenuActions {
     
 
     public void addLogEntry(LifeTracker lifeTracker, Scanner scanner) throws InterruptedException {
-        main.printRunningText("\nAdding new log entry...", 30);
+        main.printRunningText("\nAdding new log entry...", 15);
         Thread.sleep(1234);
         main.clearConsole();
         System.out.println("===================================");
-        main.printRunningText("New Log Entry!", 30);
+        main.printRunningText("New Log Entry!", 15);
         float hoursStudied = 0;
         do{
             try { //hours studied
@@ -80,38 +80,71 @@ public class MenuActions {
         
     }
 
-    public void removeLogEntry(LifeTracker lifeTracker, Scanner scanner) throws InterruptedException {
-        main.printRunningText("\nRemoving log entry...", 30);
+        public void removeLogEntry(LifeTracker lifeTracker, Scanner scanner) throws InterruptedException {
+        main.printRunningText("\nRemoving log entry...", 15);
         Thread.sleep(1234);
         main.clearConsole();
+
         System.out.println("===================================");
         lifeTracker.displayAllEntries();
-        System.out.print("Enter the index of the entry to remove: ");
-        int index;
-        boolean isRemoved = false;
-        do{
-            try { // index to be removed
-            
-            index = scanner.nextInt() -1;
 
-            if(index < 0 || index >= lifeTracker.getEntrySize()) {
-               System.out.print("Invalid index. Please enter a valid index: ");
-               //index = scanner.nextInt() -1;
-            }else {
-                lifeTracker.removeEntry(index);
-                isRemoved = true;
+        int maxAttempts = 5;
+        int attempts = 0;
+        int index = -1;
+
+        while (attempts < maxAttempts) {
+            System.out.print("Enter the index of the entry to remove: ");
+            try {
+                index = scanner.nextInt() - 1;
+                scanner.nextLine();
+                System.out.println(attempts);
+                if (index < 0 || index >= lifeTracker.getEntrySize()) {
+                    System.out.println("Invalid index. Try again.");
+                    attempts++;
+                    continue;
+                }
+
+                if (confirmRemoval(scanner, index)) {
+                    lifeTracker.removeEntry(index);
+                    System.out.println("Entry removed successfully.");
+                } else {
+                    System.out.println("Removal cancelled.");
+                }
                 break;
+            } catch (Exception e) {
+                System.out.println("Invalid input. Please enter a number.");
+                scanner.nextLine(); 
+                attempts++;
             }
-        } catch (Exception e) {
-            System.out.print("\nStrings are not allowed. Please enter a valid index to be removed: ");
-            scanner.nextLine(); 
-            index = -1;
-            }
-        } while (isRemoved == false);
-        
+        }
+
+        if (attempts >= maxAttempts) {
+            System.out.println("Too many invalid attempts.");
+            Thread.sleep(1234);
+        }
+
         System.out.println("===================================");
         main.printRunningText("Returning to main menu...", 30);
         Thread.sleep(1500);
-        //main.clearConsole();
+        main.clearConsole();
     }
+
+
+    public boolean confirmRemoval(Scanner scanner, int index) {
+    while (true) {
+        System.out.print("Confirm removal of entry " + (index + 1) + "? (Yes/No): ");
+        String input = scanner.nextLine().trim().toLowerCase();
+
+        if (input.equals("yes") || input.equals("y")) {
+            return true;
+        } else if (input.equals("no") || input.equals("n")) {
+            return false;
+        } else {
+            System.out.println("Invalid input. Please enter 'Yes' or 'No'.");
+        }
+    }
+}
+
+
+    
 }
