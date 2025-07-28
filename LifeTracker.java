@@ -14,8 +14,6 @@ public class LifeTracker {
         if (index >= 0 && index < entries.size()) {
             entries.remove(index);
             System.out.println("Entry removed successfully.");
-        } else {
-            System.out.println("Invalid index. No entry removed.");
         }
     }
     
@@ -30,6 +28,9 @@ public class LifeTracker {
     }
     public void getNumberOfEntries() {
         System.out.println("Total number of entries: " + entries.size());
+    }
+    public int getEntrySize(){
+        return entries.size();
     }
 
     public void isEmpty(){
