@@ -2,7 +2,7 @@ import java.util.ArrayList;
 public class LifeTracker {
     private ArrayList<LogEntry> entries;
     Main main = new Main();
-    
+
     public LifeTracker() {
         entries = new ArrayList<>();
     }
@@ -16,7 +16,7 @@ public class LifeTracker {
             System.out.println("Entry removed successfully.");
         }
     }
-    
+
     public void displayAllEntries() {
         int logCounter = 1;
         for (LogEntry entry : entries) {
@@ -33,12 +33,12 @@ public class LifeTracker {
         return entries.size();
     }
 
-    public void isEmpty(){
+    public boolean isEmpty(){
         if(entries.isEmpty()){
-            System.out.println("No entries found.");
+            return true;
         } else {
-            System.out.println("Entries found.");
+            return false;
         }
-        
+
     }
 }

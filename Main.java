@@ -22,15 +22,15 @@ public class Main {
     }
     public void printRunningText(String text, int delay) {
             for (char c : text.toCharArray()) {
-                System.out.print(c);  
+                System.out.print(c);
                 try {
-                    Thread.sleep(delay); 
+                    Thread.sleep(delay);
                 } catch (InterruptedException e) {
                     Thread.currentThread().interrupt();
                     System.out.println("Error in delay: " + e.getMessage());
                 }
             }
-            System.out.println();  
+            System.out.println();
         }
 
 
@@ -57,7 +57,11 @@ public class Main {
                     menuActions.addLogEntry(lifeTracker, scanner);
                         break;
                     case 2:
-                    menuActions.removeLogEntry(lifeTracker, scanner);
+                    if (lifeTracker.isEmpty()) {
+                      System.out.println("No existing record!");
+                    } else {
+                        menuActions.removeLogEntry(lifeTracker, scanner);
+                    }
                         break;
 
                     case 3:
@@ -71,6 +75,6 @@ public class Main {
                 scanner.nextLine();
             }
         } while (choice != 6);
-        
+
     }
 }
